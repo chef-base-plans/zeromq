@@ -1,1 +1,2 @@
-command_path: '/bin/zeromq'
+library_relative_path: '/lib/libzmq.so'
+pkgconfig_relative_path: '/lib/pkgconfig/libzmq.pc'
