@@ -1,2 +1,2 @@
-library_relative_path: '/lib/libzmq.so'
-pkgconfig_relative_path: '/lib/pkgconfig/libzmq.pc'
+library_filename: 'libzmq.so'
+pkgconfig_filename: 'libzmq.pc'
