@@ -17,16 +17,16 @@ control 'core-plans-zeromq-library-exists' do
     its('stdout') { should_not be_empty }
   end
 
-  library_relative_path = input('library_relative_path', value: '/lib/libzmq.so')
-  library_full_path = plan_installation_directory.stdout.strip + "#{library_relative_path}"
+  library_filename = input('library_filename', value: 'libzmq.so')
+  library_full_path = File.join(plan_installation_directory.stdout.strip, 'lib', "#{library_filename}")
   describe file(library_full_path) do
     it { should exist }
   end
 
   plan_pkg_ident = ((plan_installation_directory.stdout.strip).match /(?<=pkgs\/)(.*)/)[1]
   plan_pkg_version = (plan_pkg_ident.match /^#{plan_origin}\/#{plan_name}\/(?<version>.*)\//)[:version]
-  pkgconfig_relative_path = input('pkgconfig_relative_path', value: '/lib/pkgconfig/libzmq.pc')
-  pkgconfig_full_path = plan_installation_directory.stdout.strip + "#{pkgconfig_relative_path}"
+  pkgconfig_filename = input('pkgconfig_filename', value: 'libzmq.pc')
+  pkgconfig_full_path = File.join(plan_installation_directory.stdout.strip, 'lib', 'pkgconfig', "#{pkgconfig_filename}")
   describe command("cat #{pkgconfig_full_path}") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
